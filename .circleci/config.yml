@@ -20,7 +20,7 @@ jobs:
     working_directory: ~/volume
     steps:
       - checkout
-      - run: ./bin/volume dev/lint dev/test build
+      - run: ./bin/volume dev/lint build
 workflows:
   version: 2
   pull-request:
