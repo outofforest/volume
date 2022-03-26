@@ -81,6 +81,17 @@ var tCases = []tCase{
 		Result: Hop{Start: "AAA", End: "AAA"},
 	},
 	{
+		Name: "TestSingleVertexLoop",
+		Hops: []Hop{
+			{Start: "AAA", End: "AAA"},
+			{Start: "AAA", End: "AAA"},
+			{Start: "AAA", End: "AAA"},
+			{Start: "AAA", End: "AAA"},
+			{Start: "AAA", End: "AAA"},
+		},
+		Result: Hop{Start: "AAA", End: "AAA"},
+	},
+	{
 		Name:  "TestLoop",
 		Fails: true,
 		Hops: []Hop{
