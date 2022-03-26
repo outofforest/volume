@@ -43,3 +43,8 @@ Graph built from those edges forms a correct trip, however it is an *cyclic* Eul
 So despite the fact that the trip exists, I'm not able to select starting and finishing points.
 
 Making a statement that graph has to be acyclic I implicitly treat this case as invalid.
+
+The only solvable cyclic graph is the one containing a single hop: `(AAA, AAA)`.
+In this trivial case it's obvious that trip both started and ended in `AAA`.
+
+Sequences like `(AAA, AAA), (AAA, AAA), (AAA, AAA)` work the same way.
