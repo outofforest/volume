@@ -18,6 +18,28 @@ var tCases = []tCase{
 		Hops:  []Hop{},
 	},
 	{
+		Name:  "TestEmptyStart",
+		Fails: true,
+		Hops: []Hop{
+			{Start: "", End: "BBB"},
+		},
+	},
+	{
+		Name:  "TestEmptyEnd",
+		Fails: true,
+		Hops: []Hop{
+			{Start: "AAA", End: ""},
+		},
+	},
+	{
+		Name:  "TestEmptyMiddle",
+		Fails: true,
+		Hops: []Hop{
+			{Start: "AAA", End: ""},
+			{Start: "", End: "BBB"},
+		},
+	},
+	{
 		Name: "TestSingleHopJourney",
 		Hops: []Hop{
 			{Start: "AAA", End: "BBB"},
