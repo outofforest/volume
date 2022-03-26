@@ -45,15 +45,18 @@ func Reduce(hops []Hop) (Hop, error) {
 			res.Start = symbol
 		case c.Incoming == c.Outgoing+1:
 			// finishing point
-			if res.End != "" {
-				return Hop{}, fmt.Errorf("more than one finishing point detected: %s", symbol)
-			}
+
+			// Checking if we have already found an end point before is not needed here because it's not possible
+			// to create many of them without creating many starting points too.
+
 			res.End = symbol
 		default:
 			return Hop{}, fmt.Errorf("invalid point detected: %s", symbol)
 		}
 	}
-	if res.Start == "" || res.End == "" {
+
+	// Checking if end point s empty is not needed here because in such case starting point would be empty too.
+	if res.Start == "" {
 		return Hop{}, errors.New("invalid list of hops")
 	}
 	return res, nil
