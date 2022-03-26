@@ -12,6 +12,7 @@ require (
 	github.com/outofforest/logger v0.2.0
 	github.com/outofforest/run v0.2.2
 	github.com/ridge/must v0.6.0
+	github.com/stretchr/testify v1.7.1
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
 )
