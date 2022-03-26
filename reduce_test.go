@@ -180,6 +180,24 @@ var tCases = []tCase{
 		},
 		Result: Hop{Start: "AAA", End: "EEE"},
 	},
+	{
+		Name: "TestManyIdenticalLoops",
+		Hops: []Hop{
+			// AAA -> BBB -> CCC -> DDD -> BBB -> CCC -> DDD -> BBB -> CCC -> DDD -> EEE
+			// There are two identical loop, we don't care which one was taken first
+			{Start: "AAA", End: "BBB"},
+			{Start: "BBB", End: "CCC"},
+			{Start: "BBB", End: "CCC"},
+			{Start: "BBB", End: "CCC"},
+			{Start: "CCC", End: "DDD"},
+			{Start: "CCC", End: "DDD"},
+			{Start: "CCC", End: "DDD"},
+			{Start: "DDD", End: "BBB"},
+			{Start: "DDD", End: "BBB"},
+			{Start: "DDD", End: "EEE"},
+		},
+		Result: Hop{Start: "AAA", End: "EEE"},
+	},
 }
 
 func TestReduce(t *testing.T) {
