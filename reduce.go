@@ -11,10 +11,20 @@ type Hop struct {
 	End   string
 }
 
+func (h Hop) String() string {
+	return fmt.Sprintf("(%s, %s)", h.Start, h.End)
+}
+
 // Reduce merges list of hops into a single hop containing places where journey was started and finished
 func Reduce(hops []Hop) (Hop, error) {
 	counters := map[string]edgeCounter{}
 	for _, h := range hops {
+		if h.Start == "" {
+			return Hop{}, fmt.Errorf("no starting point defined for hop %s", h)
+		}
+		if h.End == "" {
+			return Hop{}, fmt.Errorf("no finishing point defined for hop %s", h)
+		}
 		hStart := counters[h.Start]
 		hStart.Outgoing++
 		counters[h.Start] = hStart
