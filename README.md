@@ -13,8 +13,8 @@ Obviously not. There might be forks leading to nowhere, loops which make detecti
 or set of hops may be simply empty. I included unit tests describing different cases in [./reduce_test.go](./reduce_test.go).
 
 ### Do I have to find the exact path?
-No! I'm interested only in starting and finishing points. Detecting full path has complexity O(n^2), while detecting first
-and last points takes only O(n).
+No! I'm interested only in starting and finishing points. If graph contains loops, determining exact path may not be even
+possible, while solving first and last point may still be doable.
 
 ### How to describe the problem?
 Airports are vertices of the graph, hops are its directed edges.
@@ -26,30 +26,30 @@ Conditions graph has to meet to be solvable:
 - there are 0 or more (but finite) vertices having exactly the same number of incoming and outgoing edges
 
 ### So what am I dealing with exactly?
-After looking at rules mentioned in the previous paragraph it becomes clear that I'm dealing with acyclic Eulerian graph and
+After looking at rules mentioned in the previous paragraph it becomes clear that I'm dealing with non-circular Eulerian graph and
 the task is about finding starting and finishing points of Eulerian path inside that graph.
 
 Because those points may be detected just by looking at the edges around these single points I don't need to traverse the graph.
 
 ### Algorithm
 1. Count incoming and outgoing edges around each vertex of graph formed from hops. 
-2. Verify (by looking at counted numbers) that graph meets rules of acyclic Eulerian graph.
+2. Verify (by looking at counted numbers) that graph meets rules of non-circular Eulerian graph.
 3. Select starting and finishing points.
+
+The complexity of this algorithm is O(n), where n is the number of hops. 
 
 ### Loop
 There is one interesting case. Suppose this is the list of hops:
 
 `(AAA, BBB), (BBB, CCC), (CCC, AAA)`
 
-Graph built from those edges forms a correct trip, however it is an *cyclic* Eulerian graph instead of acyclic one.
+Graph built from those edges forms a correct trip, however it is a *circular* Eulerian graph instead of non-circular one.
 So despite the fact that the trip exists, I'm not able to select starting and finishing points.
 
-Making a statement that graph has to be acyclic I implicitly treat this case as invalid.
+Making a statement that graph has to be non-circular I implicitly treat this case as invalid.
 
-The only solvable cyclic graph is the one containing a single hop: `(AAA, AAA)`.
-In this trivial case it's obvious that trip both started and ended in `AAA`.
-
-Sequences like `(AAA, AAA), (AAA, AAA), (AAA, AAA)` work the same way.
+The only solvable circular graph is the one containing a series of hops containing same code everywhere e.g.: `(AAA, AAA)`
+or `(AAA, AAA), (AAA, AAA), (AAA, AAA)`. In such a trivial case it's obvious that trip both started and ended in `AAA`.
 
 ## Software design
 
