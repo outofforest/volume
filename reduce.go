@@ -17,7 +17,7 @@ func (h Hop) String() string {
 
 // Reduce merges list of hops into a single hop containing places where journey was started and finished
 func Reduce(hops []Hop) (Hop, error) {
-	counters := map[string]edgeCounter{}
+	counters := map[string]int{}
 	for _, h := range hops {
 		if h.Start == "" {
 			return Hop{}, fmt.Errorf("no starting point defined for hop %s", h)
@@ -25,13 +25,8 @@ func Reduce(hops []Hop) (Hop, error) {
 		if h.End == "" {
 			return Hop{}, fmt.Errorf("no finishing point defined for hop %s", h)
 		}
-		hStart := counters[h.Start]
-		hStart.Outgoing++
-		counters[h.Start] = hStart
-
-		hEnd := counters[h.End]
-		hEnd.Incoming++
-		counters[h.End] = hEnd
+		counters[h.Start]--
+		counters[h.End]++
 	}
 	if len(counters) == 1 {
 		// AAA -> AAA
@@ -43,17 +38,17 @@ func Reduce(hops []Hop) (Hop, error) {
 
 	var res Hop
 	for symbol, c := range counters {
-		switch {
-		case c.Outgoing == c.Incoming:
+		switch c {
+		case 0:
 			// intermediary vertex
 			continue
-		case c.Outgoing == c.Incoming+1:
+		case -1:
 			// starting point
 			if res.Start != "" {
 				return Hop{}, fmt.Errorf("more than one starting point detected: %s", symbol)
 			}
 			res.Start = symbol
-		case c.Incoming == c.Outgoing+1:
+		case 1:
 			// finishing point
 
 			// Checking if we have already found an end point before is not needed here because it's not possible
@@ -70,9 +65,4 @@ func Reduce(hops []Hop) (Hop, error) {
 		return Hop{}, errors.New("invalid list of hops")
 	}
 	return res, nil
-}
-
-type edgeCounter struct {
-	Incoming uint64
-	Outgoing uint64
 }
