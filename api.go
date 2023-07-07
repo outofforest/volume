@@ -3,14 +3,15 @@ package volume
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 
 	"github.com/outofforest/logger"
-	"github.com/outofforest/volume/lib/libhttp"
 	"github.com/ridge/must"
 	"go.uber.org/zap"
+
+	"github.com/outofforest/volume/lib/libhttp"
 )
 
 // Run starts API server
@@ -19,7 +20,7 @@ func Run(ctx context.Context, listener net.Listener) error {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/reduce", func(w http.ResponseWriter, r *http.Request) {
-		body, err := ioutil.ReadAll(r.Body)
+		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			log.Error("Error", zap.Error(err))
 			w.WriteHeader(http.StatusInternalServerError)

@@ -18,7 +18,7 @@ func main() {
 		pflag.BoolVarP(&verbose, "verbose", "v", false, "Turn on verbose logging")
 		pflag.Parse()
 
-		l, err := libnet.Listen(address)
+		l, err := libnet.Listen(ctx, address)
 		if err != nil {
 			return err
 		}

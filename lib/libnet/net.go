@@ -13,11 +13,11 @@ var lc = net.ListenConfig{
 }
 
 // Listen creates listener listening on TCP port
-func Listen(address string) (net.Listener, error) {
-	return lc.Listen(context.Background(), "tcp", address)
+func Listen(ctx context.Context, address string) (net.Listener, error) {
+	return lc.Listen(ctx, "tcp", address)
 }
 
 // ListenOnRandomPort listens on random localhost TCP port
-func ListenOnRandomPort() net.Listener {
-	return must.NetListener(Listen("localhost:"))
+func ListenOnRandomPort(ctx context.Context) net.Listener {
+	return must.NetListener(Listen(ctx, "localhost:"))
 }
