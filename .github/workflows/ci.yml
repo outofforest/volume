@@ -22,6 +22,6 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./bin/.coverage/*
+          files: ./bin/.coverage/volume,./bin/.coverage/volume-build
           fail_ci_if_error: true
           verbose: true
