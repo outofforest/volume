@@ -1,6 +1,7 @@
 # Volume
 
-Thanks for the task. I enjoyed solving it!
+This is a home assignment task I completed during one of recruitment processes.
+Task description is available in [./doc/description.pdf](./doc/description.pdf).
 
 ## How I approached the problem
 
