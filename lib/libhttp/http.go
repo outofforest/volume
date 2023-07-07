@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/outofforest/logger"
+	"github.com/outofforest/parallel"
 	"github.com/ridge/must"
-	"github.com/ridge/parallel"
 	"go.uber.org/zap"
 )
 
@@ -39,7 +39,7 @@ func Run(ctx context.Context, listener net.Listener, handler http.Handler) error
 			shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 			defer cancel()
 
-			// nolint: contextcheck
+			//nolint: contextcheck
 			err := server.Shutdown(shutdownCtx)
 			if err != nil && !errors.Is(err, http.ErrServerClosed) {
 				log.Error("Shutdown failed", zap.Error(err))

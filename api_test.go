@@ -4,23 +4,24 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"testing"
 
 	"github.com/outofforest/logger"
-	"github.com/outofforest/volume/lib/libnet"
+	"github.com/outofforest/parallel"
 	"github.com/ridge/must"
-	"github.com/ridge/parallel"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/outofforest/volume/lib/libnet"
 )
 
 func env(t *testing.T, testFn func(url string)) {
-	ctx, cancel := context.WithCancel(logger.WithLogger(context.Background(), logger.New()))
+	ctx, cancel := context.WithCancel(logger.WithLogger(context.Background(), logger.New(logger.DefaultConfig)))
 	t.Cleanup(cancel)
 
-	l := libnet.ListenOnRandomPort()
+	l := libnet.ListenOnRandomPort(ctx)
 	defer func() {
 		_ = l.Close()
 	}()
@@ -43,7 +44,7 @@ func TestValidRequest(t *testing.T) {
 		resp := must.HTTPResponse(http.DefaultClient.Do(req))
 
 		require.Equal(t, http.StatusOK, resp.StatusCode)
-		body := must.Bytes(ioutil.ReadAll(resp.Body))
+		body := must.Bytes(io.ReadAll(resp.Body))
 
 		result := []string{}
 		must.OK(json.Unmarshal(body, &result))

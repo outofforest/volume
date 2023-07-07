@@ -1,12 +1,14 @@
 package build
 
-import "github.com/outofforest/buildgo"
+import (
+	"github.com/outofforest/build"
+	"github.com/outofforest/buildgo"
+)
 
 // Commands is a definition of commands available in build system
-var Commands = map[string]interface{}{
-	"tools/build": buildMe,
-	"build":       buildApp,
-	"run":         runApp,
+var Commands = map[string]build.Command{
+	"build": {Fn: buildApp, Description: "Build app"},
+	"run":   {Fn: runApp, Description: "Run app"},
 }
 
 func init() {
