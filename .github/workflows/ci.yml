@@ -18,3 +18,10 @@ jobs:
           cd ./build
           go build -o ../bin/.cache/build ./cmd
           ../bin/.cache/build dev/lint dev/test build
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./bin/.coverage/volume,./bin/.coverage/volume-build
+          fail_ci_if_error: true
+          verbose: true
