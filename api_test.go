@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/outofforest/logger"
+	"github.com/outofforest/parallel"
 	"github.com/ridge/must"
-	"github.com/ridge/parallel"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

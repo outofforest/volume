@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/outofforest/logger"
+	"github.com/outofforest/parallel"
 	"github.com/ridge/must"
-	"github.com/ridge/parallel"
 	"go.uber.org/zap"
 )
 
