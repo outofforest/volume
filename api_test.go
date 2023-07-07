@@ -9,15 +9,16 @@ import (
 	"testing"
 
 	"github.com/outofforest/logger"
-	"github.com/outofforest/volume/lib/libnet"
 	"github.com/ridge/must"
 	"github.com/ridge/parallel"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/outofforest/volume/lib/libnet"
 )
 
 func env(t *testing.T, testFn func(url string)) {
-	ctx, cancel := context.WithCancel(logger.WithLogger(context.Background(), logger.New()))
+	ctx, cancel := context.WithCancel(logger.WithLogger(context.Background(), logger.New(logger.DefaultConfig)))
 	t.Cleanup(cancel)
 
 	l := libnet.ListenOnRandomPort()
