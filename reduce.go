@@ -45,7 +45,7 @@ func Reduce(hops []Hop) (Hop, error) {
 		case -1:
 			// starting point
 			if res.Start != "" {
-				return Hop{}, fmt.Errorf("more than one starting point detected: %s", symbol)
+				return Hop{}, fmt.Errorf("more than one starting point detected 2: %s", symbol)
 			}
 			res.Start = symbol
 		case 1:
@@ -56,7 +56,7 @@ func Reduce(hops []Hop) (Hop, error) {
 
 			res.End = symbol
 		default:
-			return Hop{}, fmt.Errorf("invalid point detected: %s", symbol)
+			return Hop{}, fmt.Errorf("invalid point detected 2: %s", symbol)
 		}
 	}
 
