@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	build.Main("volume", nil, me.Commands)
+	build.Main("volume2", nil, me.Commands)
 }

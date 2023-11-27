@@ -62,7 +62,7 @@ func Reduce(hops []Hop) (Hop, error) {
 
 	// Checking if end point is empty is not needed here because in such case starting point would be empty too.
 	if res.Start == "" {
-		return Hop{}, errors.New("invalid list of hops")
+		return Hop{}, errors.New("invalid list of hops 2")
 	}
 	return res, nil
 }
